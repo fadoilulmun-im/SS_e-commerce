@@ -1,0 +1,22 @@
+{
+    "name": "silverstripe-themes/shopmax-master",
+    "description": "The SilverStripe shopmax-master theme",
+    "type": "silverstripe-theme",
+    "keywords": ["silverstripe", "theme"],
+    "require": {
+        "composer/installers": "*",
+        "silverstripe/framework": ">=3.5"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.2.x-dev"
+        },
+        "expose": [
+            "css",
+            "images",
+            "js",
+            "fonts",
+            "scss"
+        ]
+    }
+}

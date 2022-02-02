@@ -24,7 +24,10 @@ namespace {
          */
         private static $allowed_actions = [
             'emailValidation',
-            'resetPass'
+            'resetPass',
+            'login',
+            'register',
+            'registerSubmit'
         ];
 
         protected function init()
@@ -77,6 +80,21 @@ namespace {
                 'Title' => $Title,
                 'isValid' => $isValid
             ];
+        }
+
+        public function login()
+        {
+            # code...
+        }
+
+        public function register()
+        {
+            return [];
+        }
+
+        public function registerSumit()
+        {
+            # code...
         }
     }
 }

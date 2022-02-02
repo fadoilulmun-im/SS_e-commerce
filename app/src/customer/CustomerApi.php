@@ -43,7 +43,8 @@ class CustomerApiPageController extends ApiPageController
     'listCart',
     'listOrder',
     'tesemail',
-    'forgotPassword'
+    'forgotPassword',
+    'resetPassword'
   ];
 
   public function tesemail()
@@ -254,7 +255,7 @@ class CustomerApiPageController extends ApiPageController
     }
 
     $customer = Customer::get()->filter('TokenResetPass', $this->id)->first();
-    $customer->password = $_REQUEST['password'];
+    $customer->Password = $_REQUEST['password'];
     $customer->TokenResetPass = null;
     $customer->write();
 

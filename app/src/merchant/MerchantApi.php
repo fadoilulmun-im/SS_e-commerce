@@ -42,6 +42,7 @@ class MerchantApiPageController extends ApiPageController
     'acceptOrRejectOrder',
     'rejectOrder',
     'forgotPassword',
+    'resetPassword',
     'listOrders'
   ];
 
@@ -277,7 +278,7 @@ class MerchantApiPageController extends ApiPageController
     }
 
     $merchant = Merchant::get()->filter('TokenResetPass', $this->id)->first();
-    $merchant->password = $_REQUEST['password'];
+    $merchant->Password = $_REQUEST['password'];
     $merchant->TokenResetPass = null;
     $merchant->write();
 

@@ -3,6 +3,7 @@ Name: mytheme
 ---
 SilverStripe\View\SSViewer:
   themes:
+    - 'shopmax-master'
     - '$public'
     - 'simple'
     - '$default'
