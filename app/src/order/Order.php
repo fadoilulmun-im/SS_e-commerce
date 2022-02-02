@@ -21,7 +21,8 @@ class Order extends DataObject
   ];
 
   private static $has_one = [
-    'Customer' => Customer::class
+    'Customer' => Customer::class,
+    'Merchant' => Merchant::class
   ];
 
   public function toArray()

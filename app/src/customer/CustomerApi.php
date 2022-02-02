@@ -339,6 +339,13 @@ class CustomerApiPageController extends ApiPageController
         'message' => 'Product not Available'
       ]), 400);
     }
+
+    if(!$product->Merchant->IsOpen){
+      return new HTTPResponse(json_encode([
+        'status' => 'no',
+        'message' => 'Merchant is closed'
+      ]), 400);
+    }
     
     // $order = Order::get()->filter([
     //   'DateOrder' => null,
@@ -459,6 +466,7 @@ class CustomerApiPageController extends ApiPageController
     // $order->DateOrder = date("Y-m-d H:i:s");
     $order = Order::create();
     $order->CustomerID = $this->customer->ID;
+    $order->MerchantID = $carts[0]->Product->Merchant->ID;
     $order->write();
     $totalPrice = 0;
     foreach($carts as $detail){

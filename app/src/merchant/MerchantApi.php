@@ -133,17 +133,24 @@ class MerchantApiPageController extends ApiPageController
 
     $merchant = Merchant::get()->filter('Email', $_REQUEST['email'])->first();
     if(!$merchant){
-      return json_encode([
+      return new HTTPResponse(json_encode([
         'status' => 'no',
         'message' => 'Invalid Credentials'
-      ]);
+      ]), 403);
     }
 
     if($merchant->Validation != 'success'){
-      return json_encode([
+      return new HTTPResponse(json_encode([
         'status' => 'no',
-        'message' => 'Account not verified'
-      ]);
+        'message' => 'Account has not been validated, please check email'
+      ]), 403);
+    }
+
+    if(!$merchant->IsApproved){
+      return new HTTPResponse(json_encode([
+        'status' => 'no',
+        'message' => 'Account is still in the approval process'
+      ]), 403);
     }
 
     $auth = new MemberAuthenticator();

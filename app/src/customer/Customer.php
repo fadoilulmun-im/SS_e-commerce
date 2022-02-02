@@ -71,6 +71,7 @@ class Customer extends Member
     $fields = parent::getCMSFields();
     $fields->removeByName("Surname");
     $fields->removeByName("FailedLoginCount");
+    $fields->removeByName("DirectGroups");
     return $fields;
   }
 }

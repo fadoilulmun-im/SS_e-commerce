@@ -20,6 +20,7 @@ class Merchant extends Member
 
   private static $has_many = [
     'Products' => Product::class,
+    'Orders' => Order::class
   ];
 
   public function toArray()
@@ -85,6 +86,14 @@ class Merchant extends Member
     }
     
     return false;
+  }
+
+  public function getCMSFields() {
+    $fields = parent::getCMSFields();
+    $fields->removeByName("Surname");
+    $fields->removeByName("FailedLoginCount");
+    $fields->removeByName("DirectGroups");
+    return $fields;
   }
 }
 
