@@ -42,20 +42,27 @@
     const name = $("#name").val();
     const email = $("#emailReg").val();
     const password = $("#passwordReg").val();
-    const photo = $("#photo").val();
+    const photo = $("#photo")[0].files;
 
+    console.log(photo[0]);
     var formData = new FormData();
-    formData.append('name', name);
-    formData.append('email', email);
-    formData.append('password', password);
-    formData.append('photo', photo);
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("photo", photo[0]);
+    
+    for (var value of formData.values()) {
+      console.log(value);
+    }
 
     var settings = {
       "url": "customer-api/register",
       "method": "POST",
+      "enctype": 'multipart/form-data',
+      "processData": false,
+      "contentType": false,
       "headers": {
-        "ClientID": "61f0d060f1f163.13349246",
-        "Content-Type": "application/x-www-form-urlencoded"
+        "ClientID": "61f0d060f1f163.13349246"
       },
       "data": formData
     };

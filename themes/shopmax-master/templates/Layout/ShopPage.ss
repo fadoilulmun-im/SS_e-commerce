@@ -49,128 +49,8 @@
             </div>
           </div>
         </div>
-        <div class="row mb-5">
+        <div class="row mb-5" id="list-product">
 
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/prod_2.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Gray Shoe</a></h2>
-            <strong class="item-price">$20.00</strong>
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/prod_3.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Blue Shoe High Heels</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-          </div>
-
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/model_5.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Denim Jacket</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-
-            <div class="star-rating">
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-            </div>
-
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/prod_1.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Leather Green Bag</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-            <div class="star-rating">
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-            </div>
-          </div>
-
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/model_1.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Smooth Cloth</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/model_7.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Yellow Jacket</a></h2>
-            <strong class="item-price">$58.00</strong>
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/prod_2.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Gray Shoe</a></h2>
-            <strong class="item-price">$20.00</strong>
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/prod_3.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Blue Shoe High Heels</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-          </div>
-
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/model_5.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Denim Jacket</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-
-            <div class="star-rating">
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-            </div>
-
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/prod_1.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Leather Green Bag</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-            <div class="star-rating">
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-              <span class="icon-star2 text-warning"></span>
-            </div>
-          </div>
-
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/model_1.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Smooth Cloth</a></h2>
-            <strong class="item-price"><del>$46.00</del> $28.00</strong>
-          </div>
-          <div class="col-lg-6 col-md-6 item-entry mb-4">
-            <a href="#" class="product-item md-height bg-gray d-block">
-              <img src="$ThemeDir/images/model_7.png" alt="Image" class="img-fluid">
-            </a>
-            <h2 class="item-title"><a href="#">Yellow Jacket</a></h2>
-            <strong class="item-price">$58.00</strong>
-          </div>
         </div>
         <div class="row">
           <div class="col-md-12 text-center">
@@ -241,3 +121,75 @@
 
   </div>
 </div>
+
+<script>
+  $(document).ready(async function(){
+    var spinner = $('#loader');
+    spinner.show();
+    let products = [];
+    let merchants = [];
+    var settings = {
+      //url: "product-api",
+      url: "customer-api/allMerchant",
+      "headers": {
+        "ClientID": "61f0d060f1f163.13349246"
+      },
+      "success": async (res) => {
+        /*try{
+          let response = await JSON.parse(res);
+          await localStorage.setItem("Products",JSON.stringify(response.data));
+          products = await response.data;
+        }catch(e){
+          products = await JSON.parse(localStorage.getItem("Products"));
+          console.log('error : ',e);
+        }*/
+        let response = res.split('[2022-');
+        let responseJSON = JSON.parse(response[0]);
+
+        console.log(responseJSON);
+        merchants = responseJSON.data;
+        
+      },
+      "error": (res) => {
+        alert(JSON.parse(res.responseText).message);
+      }
+    };
+
+    await $.get(settings).always(function (res) {
+      console.log(res);
+    });
+
+    spinner.hide();
+
+    const rupiah = (number)=>{
+      return new Intl.NumberFormat("id-ID").format(number);
+    }
+
+    merchants.forEach((item, index)=>{
+      $("#list-product").append(`
+        <div class="col-lg-6 col-md-6 item-entry mb-4">
+          <a  ${item.IsOpen ? `href="shop/show/${item.ID}"`  : `onclick='alert("Product not available")'`} class="product-item md-height text-danger bg-gray d-block">
+
+            <img src="${item.Photo ? item.Photo : '$ThemeDir/images/prod_2.png'}" alt="Image" class="img-fluid" ${item.IsOpen ? '' :'style="opacity: 0.2;"'}>
+            
+            ${item.IsOpen ? 
+              ``
+            :`<div class="text-center" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+              </svg>
+              <br/>
+              <br/>
+              <h4>This merchant closed</h4>
+            </div>`}
+            
+          </a>
+          <h2 class="item-title"><a ${item.IsOpen ? `href="shop/show/${item.ID}"` :  `onclick='alert("Product not available")'`} >${item.Name}</a></h2>
+          <strong class="item-price">${item.Category}</strong>
+        </div>
+      `)
+    })
+    
+  })
+</script>

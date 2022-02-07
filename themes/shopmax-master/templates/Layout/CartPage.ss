@@ -22,32 +22,10 @@
                 <th class="product-remove">Remove</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td class="product-thumbnail">
-                  <img src="$ThemeDir/images/cloth_1.jpg" alt="Image" class="img-fluid">
-                </td>
-                <td class="product-name">
-                  <h2 class="h5 text-black">Top Up T-Shirt</h2>
-                </td>
-                <td>$49.00</td>
-                <td>
-                  <div class="input-group mx-auto" style="max-width: 120px;">
-                    <div class="input-group-prepend">
-                      <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                    </div>
-                    <input type="text" class="form-control text-center border-danger bg-white" readonly value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                    </div>
-                  </div>
+            <tbody id="lists-product">
+              
 
-                </td>
-                <td>$49.00</td>
-                <td><a href="#" class="btn btn-primary height-auto btn-sm" onclick='alert("Are you sure, to delete it ?")'>X</a></td>
-              </tr>
-
-              <tr>
+              <%-- <tr>
                 <td class="product-thumbnail">
                   <img src="$ThemeDir/images/cloth_2.jpg" alt="Image" class="img-fluid">
                 </td>
@@ -69,7 +47,7 @@
                 </td>
                 <td>$49.00</td>
                 <td><a href="#" class="btn btn-primary height-auto btn-sm" onclick='alert("Are you sure, to delete it ?")'>X</a></td>
-              </tr>
+              </tr> --%>
             </tbody>
           </table>
         </div>
@@ -135,3 +113,70 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(async ()=>{
+    var spinner = $('#loader');
+    //let cart
+    spinner.show();
+    const AccessToken = sessionStorage.getItem("AccessToken");
+    if(!AccessToken){
+      alert("Please login first to continue");
+      window.history.back();
+    }else{
+      let cart = await JSON.parse(sessionStorage.getItem('cart'));
+      console.log('cartpage', (cart));
+      spinner.hide();
+
+      cart.forEach((item, index)=>{
+        $("#lists-product").append(`
+          <tr>
+            <td class="product-thumbnail">
+              <img src="${item.Product.Images ? item.Product.Images[0].Link : ''}" alt="Image" class="img-fluid">
+            </td>
+            <td class="product-name">
+              <h2 class="h5 text-black">${item.Product.Title}</h2>
+            </td>
+            <td>Rp ${new Intl.NumberFormat("id-ID").format(item.Product.Price)}</td>
+            <td>
+              <div class="input-group mx-auto" style="max-width: 120px;">
+                <div class="input-group-prepend">
+                  <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                </div>
+                <input type="text" class="form-control text-center border-danger bg-white" readonly value="${item.Quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                </div>
+              </div>
+
+            </td>
+            <td>Rp ${new Intl.NumberFormat("id-ID").format(item.TotalPrice)}</td>
+            <td><a href="#" id="deleteFromCart-${item.ID}" class="btn btn-primary height-auto btn-sm">X</a></td>
+          </tr>
+        `)
+
+        $(`#deleteFromCart-${item.ID}`).click(function(){
+          let yes = confirm("Are you sure, to delete it ?");
+          if(yes){
+            $.get({
+              url: `customer-api/deleteFromCart/${item.Product.ID}`,
+              headers: {
+                "ClientID": "61f0d060f1f163.13349246",
+                "AccessToken" : AccessToken
+              },
+              success: async (res)=>{
+                $(this).parent().parent().hide();
+              },
+              error: (res) => {
+                alert(JSON.parse(res.responseText).message);
+              }
+            })
+          }
+        })
+      })
+    }
+
+    
+    
+  })
+</script>

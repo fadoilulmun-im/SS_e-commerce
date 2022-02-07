@@ -4,7 +4,8 @@ namespace {
 
     use SilverStripe\CMS\Controllers\ContentController;
     use SilverStripe\ORM\DataObject;
-
+    use SilverStripe\Control\HTTPRequest;
+    use SilverStripe\Core\Injector\Injector;
     class PageController extends ContentController
     {
         /**
@@ -92,9 +93,10 @@ namespace {
             return [];
         }
 
-        public function registerSumit()
+        public function getTime()
         {
-            # code...
+            return date("h:i:sa");
         }
+
     }
 }

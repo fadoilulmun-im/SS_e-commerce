@@ -59,9 +59,9 @@ class ProductApiPageController extends ApiPageController
     if($this->checkClientID()){
       return $this->checkClientID();
     }
-    if($this->checkTokenCustomer['status'] == 'no'){
-      return json_encode($this->checkTokenCustomer);
-    }
+    // if($this->checkTokenCustomer['status'] == 'no'){
+    //   return new HTTPResponse(json_encode($this->checkTokenCustomer), 403);
+    // }
 
     $products = Product::get();
     $arrProduct = [];

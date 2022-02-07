@@ -31,7 +31,8 @@ class Merchant extends Member
       'Name' => $this->FirstName,
       'Email' => $this->Email,
       'Photo' => $this->PhotoProfile->Link(),
-      'IsOpen' => $this->IsOpen ? 'yes' : 'no'
+      'Category' => $this->Category->Title,
+      'IsOpen' => $this->IsOpen ? true : false
     ];
 
     return $arr;
@@ -45,7 +46,8 @@ class Merchant extends Member
       'Name' => $this->FirstName,
       'Email' => $this->Email,
       'Photo' => $this->PhotoProfile->Link(),
-      'IsOpen' => $this->IsOpen ? 'yes' : 'no'
+      'Category' => $this->Category->Title,
+      'IsOpen' => $this->IsOpen ? true : false
     ];
 
     if(count($this->Products()) != 0){

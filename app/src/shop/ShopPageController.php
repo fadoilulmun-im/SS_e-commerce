@@ -14,5 +14,14 @@ class ShopPageController extends PageController
   {
     parent::doInit();
   }
+
+  private static $allowed_actions = [
+    'show'
+  ];
+
+  public function show()
+  {
+    return [];
+  }
 }
 ?>

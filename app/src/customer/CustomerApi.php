@@ -44,7 +44,8 @@ class CustomerApiPageController extends ApiPageController
     'listOrder',
     'tesemail',
     'forgotPassword',
-    'resetPassword'
+    'resetPassword',
+    'allMerchant'
   ];
 
   public function tesemail()
@@ -131,26 +132,26 @@ class CustomerApiPageController extends ApiPageController
 
     $customer = Customer::get()->filter('Email', $_REQUEST['email'])->first();
     if(!$customer){
-      return json_encode([
-        'status' => 'no',
-        'message' => 'Invalid Credentials'
-      ]);
+      return new HTTPResponse(json_encode([
+        "status" => "no",
+        "message" => "Invalid Credentials"
+      ]), 403);
     }
 
     if($customer->Validation != 'success'){
-      return json_encode([
+      return new HTTPResponse(json_encode([
         'status' => 'no',
         'message' => 'Account not verified'
-      ]);
+      ]), 403);
     }
 
     $auth = new MemberAuthenticator();
     $result = $auth->checkPassword($customer, $_REQUEST['password']);
     if(!$result->isValid()){
-      return json_encode([
-        'status' => 'no',
-        'message' => 'Invalid Credentials'
-      ]);
+      return new HTTPResponse(json_encode([
+        "status" => "no",
+        "message" => "Invalid Credentials"
+      ]), 403);
     }
 
     $customer->AccessToken = uniqid('', true);
@@ -300,9 +301,9 @@ class CustomerApiPageController extends ApiPageController
 
   public function merchant()
   {
-    if($this->checkToken['status'] == 'no'){
-      return $this->httpError(403,json_encode($this->checkToken));
-    }
+    // if($this->checkToken['status'] == 'no'){
+    //   return $this->httpError(403,json_encode($this->checkToken));
+    // }
 
     $merchant = Merchant::get()->byID($this->id);
     if(!$merchant){
@@ -548,6 +549,21 @@ class CustomerApiPageController extends ApiPageController
       'status' => 'ok',
       'message' => 'Success get all orders',
       'data' => $arrOrders
+    ]);
+  }
+
+  public function allMerchant()
+  {
+    $merchants = Merchant::get();
+    $arrMerchans = [];
+    foreach($merchants as $merchant){
+      $arrMerchants[] = $merchant->toArray();
+    }
+
+    return json_encode([
+      'status' => 'ok',
+      'message' => 'Success get all merchants',
+      'data' => $arrMerchants
     ]);
   }
 }

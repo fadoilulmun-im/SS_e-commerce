@@ -29,19 +29,23 @@
       </div>
       <div class="icons">
         <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-        <a href="cart" class="icons-btn d-inline-block bag">
+        <a href="cart" class="icons-btn d-inline-block bag" id="countCart">
           <span class="icon-shopping-bag"></span>
-          <span class="number">2</span>
+          <%-- <span class="number">2</span> --%>
         </a>
-        <% if CurrentMember %>
-          <a class="icons-btn d-inline-block" href='#' role="button" id="user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="icon-user"></span>
+
+        <span id="isLogin" style="display: none">
+          <a class="icons-btn d-inline-block ml-2" href='#' role="button" id="user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <%-- <span class="icon-user"></span> --%>
+            <span class="">
+              <img id="img-profile" class="rounded-circle" alt="Cinque Terre" width="26" height="26"> 
+            </span>
           </a>
 
           <div class="dropdown-menu" aria-labelledby="user">
             <a class="dropdown-item" href="#">Profile</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item text-primary" href="#">
+            <a class="dropdown-item text-primary" href="#" id="logout">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"/>
                 <path fill-rule="evenodd" d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
@@ -49,7 +53,9 @@
               <span class="ml-2">Sign Out</span>
             </a>
           </div>
-        <% else %>
+        </span>
+          
+        <span id="notLogin" style="display: none">
           <button class="btn btn-light text-primary ml-2"  type="button" id="login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Login
           </button>
@@ -70,8 +76,8 @@
             <a class="dropdown-item" href="home/register">New around here? Sign up</a>
             <a class="dropdown-item" href="#">Forgot password?</a>
           </div>
-        <% end_if %>
-        
+        </span>
+                  
         <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
       </div>
     </div>
@@ -79,24 +85,87 @@
 </div>
 
 <script>
-  $("#formLogin").submit(function(e){
-    e.preventDefault();
-    var settings = {
-      "url": "customer-api/login",
-      "method": "POST",
-      "headers": {
-        "ClientID": "61f0d060f1f163.13349246",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      "data": {
-        "email": $("#email").val(),
-        "password": $("#password").val()
-      }
-    };
+  $(document).ready(async function(){
+    var spinner = $('#loader');
+    
+    const AccessToken = sessionStorage.getItem("AccessToken");
+    if(AccessToken){
+      let countCart = 0;
+      await $.get({
+        url : "customer-api/listCart",
+        headers :{
+          "ClientID": "61f0d060f1f163.13349246",
+          "AccessToken" : AccessToken
+        },
+        "success": (res) => {
+          let cart = res.split('[2022-');
+          let cartJSON = JSON.parse(cart[0]);
+          sessionStorage.setItem('cart', JSON.stringify(cartJSON.data));
+          countCart = (cartJSON.data).length;
+        },
+        "error": (res) => {
+          alert(JSON.parse(res.responseText).message);
+        }
+      }).always(function (res){
+        console.log('nav', res);
+      })
 
-    $.ajax(settings).done(function (res) {
-      console.log(res);
-    });
+      $("#countCart").append(`
+        <span class="number">${countCart}</span>
+      `)
+    }
+
+    if(sessionStorage.getItem("AccessToken") && (sessionStorage.getItem("AccessToken") != "undefined")){
+      const User = JSON.parse(sessionStorage.getItem("User"))
+      $("#notLogin").hide();
+      $("#img-profile").attr("src", User.photo);
+      $("#isLogin").show();
+    }else{
+      $("#notLogin").show();
+      $("#isLogin").hide();
+    }
+
+    $("#formLogin").submit(function(e){
+      e.preventDefault();
+      spinner.show();
+      var settings = {
+        "url": "customer-api/login",
+        "method": "POST",
+        "headers": {
+          "ClientID": "61f0d060f1f163.13349246",
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        "data": {
+          "email": $("#email").val(),
+          "password": $("#password").val()
+        },
+        "success": (res) => {
+          let response = JSON.parse(res);
+          sessionStorage.setItem("User", JSON.stringify(response.data));
+          sessionStorage.setItem("AccessToken", response.AccessToken);
+          $("#notLogin").hide();
+          $("#img-profile").attr("src", response.data.photo);
+          $("#isLogin").show();
+          spinner.hide();
+        },
+        "error": (res) => {
+          alert(JSON.parse(res.responseText).message);
+          spinner.hide();
+        }
+      };
+
+      $.ajax(settings).done(function (res) {
+      });
+    })
+
+    $("#logout").click(function(){
+      spinner.show();
+      sessionStorage.removeItem("AccessToken");
+      sessionStorage.removeItem("User");
+      $("#notLogin").show();
+      $("#isLogin").hide();
+      spinner.hide();
+    })
   })
   
 </script>

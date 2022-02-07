@@ -26,7 +26,6 @@ class Cart extends DataObject
       'ID' => $this->ID,
       'Quantity' => $this->Quantity,
       'TotalPrice' => $this->TotalPrice,
-      'Customer' => $this->Customer->toArray(),
       'Product' => $this->Product->toArray()
     ];
 
