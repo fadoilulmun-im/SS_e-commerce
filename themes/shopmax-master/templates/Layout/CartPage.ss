@@ -24,30 +24,6 @@
             </thead>
             <tbody id="lists-product">
               
-
-              <%-- <tr>
-                <td class="product-thumbnail">
-                  <img src="$ThemeDir/images/cloth_2.jpg" alt="Image" class="img-fluid">
-                </td>
-                <td class="product-name">
-                  <h2 class="h5 text-black">Polo Shirt</h2>
-                </td>
-                <td>$49.00</td>
-                <td>
-                  <div class="input-group mx-auto" style="max-width: 120px;">
-                    <div class="input-group-prepend">
-                      <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                    </div>
-                    <input type="text" class="form-control text-center border-danger bg-white" readonly value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                    </div>
-                  </div>
-
-                </td>
-                <td>$49.00</td>
-                <td><a href="#" class="btn btn-primary height-auto btn-sm" onclick='alert("Are you sure, to delete it ?")'>X</a></td>
-              </tr> --%>
             </tbody>
           </table>
         </div>
@@ -56,14 +32,6 @@
 
     <div class="row">
       <div class="col-md-6">
-        <div class="row mb-5">
-          <div class="col-md-6 mb-3 mb-md-0">
-            <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
-          </div>
-          <div class="col-md-6">
-            <button class="btn btn-outline-primary btn-sm btn-block">Continue Shopping</button>
-          </div>
-        </div>
         <div class="row">
           <div class="col-md-12">
             <label class="text-black h4" for="coupon">Coupon</label>
@@ -90,7 +58,7 @@
                 <span class="text-black">Subtotal</span>
               </div>
               <div class="col-md-6 text-right">
-                <strong class="text-black">$230.00</strong>
+                <strong class="text-black" id="subtotal">$230.00</strong>
               </div>
             </div>
             <div class="row mb-5">
@@ -98,13 +66,13 @@
                 <span class="text-black">Total</span>
               </div>
               <div class="col-md-6 text-right">
-                <strong class="text-black">$230.00</strong>
+                <strong class="text-black" id="total">$230.00</strong>
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-12">
-                <button class="btn btn-primary btn-lg btn-block" onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                <button class="btn btn-primary btn-lg btn-block" id="checkout">Proceed To Checkout</button>
               </div>
             </div>
           </div>
@@ -117,66 +85,181 @@
 <script>
   $(document).ready(async ()=>{
     var spinner = $('#loader');
-    //let cart
+    let total = 0;
+
     spinner.show();
     const AccessToken = sessionStorage.getItem("AccessToken");
     if(!AccessToken){
       alert("Please login first to continue");
       window.history.back();
     }else{
-      let cart = await JSON.parse(sessionStorage.getItem('cart'));
-      console.log('cartpage', (cart));
-      spinner.hide();
+      let cart = [];
+      await $.get({
+        url : 'customer-api/listCart',
+        headers: {
+          ClientID: "61f0d060f1f163.13349246",
+          AccessToken : AccessToken
+        },
+        success: async (res)=>{
+          let response = res.split('[2022-');
+          let responseJSON = JSON.parse(response[0]);
+          cart = await responseJSON.data;
 
-      cart.forEach((item, index)=>{
-        $("#lists-product").append(`
-          <tr>
-            <td class="product-thumbnail">
-              <img src="${item.Product.Images ? item.Product.Images[0].Link : ''}" alt="Image" class="img-fluid">
-            </td>
-            <td class="product-name">
-              <h2 class="h5 text-black">${item.Product.Title}</h2>
-            </td>
-            <td>Rp ${new Intl.NumberFormat("id-ID").format(item.Product.Price)}</td>
-            <td>
-              <div class="input-group mx-auto" style="max-width: 120px;">
-                <div class="input-group-prepend">
-                  <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
-                </div>
-                <input type="text" class="form-control text-center border-danger bg-white" readonly value="${item.Quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
-                </div>
-              </div>
+          cart.forEach((item, index)=>{
+            total += item.TotalPrice;
+            $("#lists-product").append(`
+              <tr>
+                <td class="product-thumbnail">
+                  <img src="${item.Product.Images ? item.Product.Images[0].Link : ''}" alt="Image" class="img-fluid">
+                </td>
+                <td class="product-name">
+                  <h2 class="h5 text-black">${item.Product.Title}</h2>
+                </td>
+                <td id="price-${item.Product.ID}">Rp ${new Intl.NumberFormat("id-ID").format(item.Product.Price)}</td>
+                <td>
+                  <div class="input-group mx-auto" style="max-width: 120px;">
+                    <div class="input-group-prepend">
+                      <button data-id="${item.Product.ID}" class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                    </div>
+                    <input type="text" class="form-control text-center border-danger bg-white" readonly value="${item.Quantity}" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <div class="input-group-append">
+                      <button data-id="${item.Product.ID}" class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                    </div>
+                  </div>
 
-            </td>
-            <td>Rp ${new Intl.NumberFormat("id-ID").format(item.TotalPrice)}</td>
-            <td><a href="#" id="deleteFromCart-${item.ID}" class="btn btn-primary height-auto btn-sm">X</a></td>
-          </tr>
-        `)
+                </td>
+                <td id="total-price-${item.Product.ID}">Rp ${new Intl.NumberFormat("id-ID").format(item.TotalPrice)}</td>
+                <td><a href="#" id="deleteFromCart-${item.ID}" class="btn btn-primary height-auto btn-sm">X</a></td>
+              </tr>
+            `)
 
-        $(`#deleteFromCart-${item.ID}`).click(function(){
-          let yes = confirm("Are you sure, to delete it ?");
-          if(yes){
-            $.get({
-              url: `customer-api/deleteFromCart/${item.Product.ID}`,
-              headers: {
-                "ClientID": "61f0d060f1f163.13349246",
-                "AccessToken" : AccessToken
-              },
-              success: async (res)=>{
-                $(this).parent().parent().hide();
-              },
-              error: (res) => {
-                alert(JSON.parse(res.responseText).message);
+            $(`#deleteFromCart-${item.ID}`).click(function(e){
+              e.preventDefault();
+              let yes = confirm("Are you sure, to delete it ?");
+              if(yes){
+                $.get({
+                  url: `customer-api/deleteFromCart/${item.Product.ID}`,
+                  headers: {
+                    "ClientID": "61f0d060f1f163.13349246",
+                    "AccessToken" : AccessToken
+                  },
+                  success: async (res)=>{
+                    $(this).parent().parent().hide();
+                    $('#cartCount').text(Number($('#cartCount').text()) - 1);
+
+                    total -= (JSON.parse(res)).data.TotalPrice;
+                    $('#total').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
+                    $('#subtotal').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
+                  },
+                  error: (res) => {
+                    alert(JSON.parse(res.responseText).message);
+                  }
+                })
               }
             })
-          }
-        })
+          })
+          
+          $('#total').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
+          $('#subtotal').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
+        },
+        error: (res) => {
+          alert(JSON.parse(res.responseText).message);
+          window.history.back();
+        }
+      }).always(function(res){
+        spinner.hide();
       })
+
+      
     }
 
-    
+    $('.js-btn-minus').on('click', async function(e){
+			e.preventDefault();
+			if ( $(this).closest('.input-group').find('.form-control').val() != 1  ) {
+        $(this).closest('.input-group').find('.form-control').val(parseInt($(this).closest('.input-group').find('.form-control').val()) - 1);
+
+        $.post({
+          url: `customer-api/updateInCart/${Number($(this).data('id'))}`,
+          headers: {
+            ClientID: "61f0d060f1f163.13349246",
+            AccessToken : AccessToken
+          },
+          data: {
+            quantity : parseInt($(this).closest('.input-group').find('.form-control').val()),
+          },
+          success: async (res) =>{
+            let response = res.split('[2022-');
+            let responseJSON = JSON.parse(response[0]);
+            let cart = responseJSON.data;
+            console.log(cart);
+            total -= cart.Product.Price
+            await $(`#total-price-${$(this).data('id')}`).text(`Rp ${new Intl.NumberFormat("id-ID").format(cart.TotalPrice)}`);
+            await $('#total').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
+            await $('#subtotal').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
+          },
+          error: (res) => {
+            alert(JSON.parse(res.responseText).message);
+          }
+        }).always(function(res){
+          console.log(res);
+        })
+      } else {
+				$(this).closest('.input-group').find('.form-control').val(parseInt(1));
+			}
+		});
+		$('.js-btn-plus').on('click', async function(e){
+			e.preventDefault();
+			$(this).closest('.input-group').find('.form-control').val(parseInt($(this).closest('.input-group').find('.form-control').val()) + 1);
+		
+      $.post({
+          url: `customer-api/updateInCart/${Number($(this).data('id'))}`,
+          headers: {
+            ClientID: "61f0d060f1f163.13349246",
+            AccessToken : AccessToken
+          },
+          data: {
+            quantity : parseInt($(this).closest('.input-group').find('.form-control').val()),
+          },
+          success: async (res) =>{
+            let response = res.split('[2022-');
+            let responseJSON = JSON.parse(response[0]);
+            let cart = responseJSON.data;
+
+            await $(`#total-price-${$(this).data('id')}`).text(`Rp ${new Intl.NumberFormat("id-ID").format(cart.TotalPrice)}`);
+            
+            total += cart.Product.Price
+            await $('#total').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
+            await $('#subtotal').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
+
+          },
+          error: (res) => {
+            alert(JSON.parse(res.responseText).message);
+          }
+        }).always(function(res){
+          console.log(res);
+        })
+
+    });
+
+    $('#checkout').click(async function(e){
+      e.preventDefault();
+      spinner.show();
+      await $.get({
+        url: 'customer-api/checkout/',
+        headers: {
+          ClientID: "61f0d060f1f163.13349246",
+          AccessToken : AccessToken
+        },
+        success: async (res) =>{
+          window.location.href = 'home/thankyou';
+        },
+        error: (res) => {
+          alert(JSON.parse(res.responseText).message);
+        }
+      }).always(function(res){
+        console.log(res)
+      })
+    })
     
   })
 </script>

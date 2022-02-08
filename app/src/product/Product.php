@@ -33,6 +33,7 @@ use SilverStripe\ORM\DataObject;
         'ID' => $this->ID,
         'Title' => $this->Title,
         'Price' => $this->Price,
+        'MerchantID' => $this->MerchantID,
         'IsAvailable' => $this->IsAvailable ? 'yes' : 'no'
       ];
 

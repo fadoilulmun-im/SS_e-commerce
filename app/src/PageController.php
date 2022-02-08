@@ -28,7 +28,8 @@ namespace {
             'resetPass',
             'login',
             'register',
-            'registerSubmit'
+            'registerSubmit',
+            'thankyou'
         ];
 
         protected function init()
@@ -83,11 +84,6 @@ namespace {
             ];
         }
 
-        public function login()
-        {
-            # code...
-        }
-
         public function register()
         {
             return [];
@@ -96,6 +92,11 @@ namespace {
         public function getTime()
         {
             return date("h:i:sa");
+        }
+
+        public function thankyou()
+        {
+            return [];
         }
 
     }

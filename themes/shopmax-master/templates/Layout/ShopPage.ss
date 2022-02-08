@@ -168,7 +168,7 @@
     merchants.forEach((item, index)=>{
       $("#list-product").append(`
         <div class="col-lg-6 col-md-6 item-entry mb-4">
-          <a  ${item.IsOpen ? `href="shop/show/${item.ID}"`  : `onclick='alert("Product not available")'`} class="product-item md-height text-danger bg-gray d-block">
+          <a  ${item.IsOpen ? `href="shop/show/${item.ID}"`  : `onclick='alert("Merchant is closed")'`} class="product-item md-height text-danger bg-gray d-block">
 
             <img src="${item.Photo ? item.Photo : '$ThemeDir/images/prod_2.png'}" alt="Image" class="img-fluid" ${item.IsOpen ? '' :'style="opacity: 0.2;"'}>
             
@@ -181,11 +181,11 @@
               </svg>
               <br/>
               <br/>
-              <h4>This merchant closed</h4>
+              <h4>This merchant is closed</h4>
             </div>`}
             
           </a>
-          <h2 class="item-title"><a ${item.IsOpen ? `href="shop/show/${item.ID}"` :  `onclick='alert("Product not available")'`} >${item.Name}</a></h2>
+          <h2 class="item-title"><a ${item.IsOpen ? `href="shop/show/${item.ID}"` :  `onclick='alert("Merchant is closed")'`} >${item.Name}</a></h2>
           <strong class="item-price">${item.Category}</strong>
         </div>
       `)

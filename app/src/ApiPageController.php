@@ -174,7 +174,7 @@ class ApiPageController extends PageController
                           <tr>
                             <td align="left" style="font-family:Open Sans,Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;line-height:24px;padding-top:10px">
                               <p style="font-size:16px;font-weight:400;line-height:24px;color:#777777">
-                              Please reset your password by clicking <a href="http://localhost/ct/ecommerce/home/resetPass/'.$user->Classname.'/'.$user->TokenResetPass.'">here</a>.
+                              Please reset your password by clicking <a href="http://localhost/ct/ecommerce/'.$user->Classname.'/resetPass/'.$user->TokenResetPass.'">here</a>.
                               </p>
                             </td>
                           </tr>

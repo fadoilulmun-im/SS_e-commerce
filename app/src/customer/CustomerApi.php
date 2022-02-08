@@ -38,10 +38,12 @@ class CustomerApiPageController extends ApiPageController
     'merchant',
     'addToCart',
     'deleteFromCart',
+    'deleteAllCart',
     'updateInCart',
     'checkout',
     'listCart',
     'listOrder',
+    'orderDetail',
     'tesemail',
     'forgotPassword',
     'resetPassword',
@@ -414,6 +416,20 @@ class CustomerApiPageController extends ApiPageController
 
   }
 
+  public function deleteAllCart()
+  {
+    if($this->checkToken['status'] == 'no'){
+      return $this->httpError(403,json_encode($this->checkToken));
+    }
+
+    $carts = Cart::get()->filter('CustomerID', $this->customer->ID);
+    $carts->removeAll();
+    return json_encode([
+      'status' => 'ok',
+      'message' => 'Successfully delete all product in cart',
+    ]);
+  }
+
   public function updateInCart()
   {
     if($this->checkToken['status'] == 'no'){
@@ -536,9 +552,8 @@ class CustomerApiPageController extends ApiPageController
     }
 
     $orders = Order::get()->filter([
-      'CustomerID' => $this->customer->ID,
-      'DateOrder:not' => null
-    ]);
+      'CustomerID' => $this->customer->ID
+    ])->sort('Created', 'DESC');
 
     $arrOrders = [];
     foreach($orders as $order){
@@ -549,6 +564,31 @@ class CustomerApiPageController extends ApiPageController
       'status' => 'ok',
       'message' => 'Success get all orders',
       'data' => $arrOrders
+    ]);
+  }
+
+  public function orderDetail()
+  {
+    if($this->checkToken['status'] == 'no'){
+      return $this->httpError(403,json_encode($this->checkToken));
+    }
+
+    $order = Order::get()->filter([
+      'ID' => $this->id,
+      'CustomerID' => $this->customer->ID
+    ])->first();
+
+    if(!$order){
+      return new HTTPResponse(json_encode([
+        'status' => 'no',
+        'message' => 'Order not found'
+      ]), 404);
+    }
+
+    return json_encode([
+      'status' => 'ok',
+      'message' => 'Success get detail order',
+      'data' => $order->toArrayOne()
     ]);
   }
 

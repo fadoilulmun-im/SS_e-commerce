@@ -31,7 +31,7 @@
         <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
         <a href="cart" class="icons-btn d-inline-block bag" id="countCart">
           <span class="icon-shopping-bag"></span>
-          <%-- <span class="number">2</span> --%>
+          <span class="number" id="cartCount">0</span>
         </a>
 
         <span id="isLogin" style="display: none">
@@ -43,7 +43,8 @@
           </a>
 
           <div class="dropdown-menu" aria-labelledby="user">
-            <a class="dropdown-item" href="#">Profile</a>
+            <a class="dropdown-item" href="customer">Profile</a>
+            <a href="customer/order/" class="dropdown-item">List Order</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item text-primary" href="#" id="logout">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-left" viewBox="0 0 16 16">
@@ -74,7 +75,7 @@
             </form>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="home/register">New around here? Sign up</a>
-            <a class="dropdown-item" href="#">Forgot password?</a>
+            <a class="dropdown-item" href="customer/forgotPass">Forgot password?</a>
           </div>
         </span>
                   
@@ -87,7 +88,8 @@
 <script>
   $(document).ready(async function(){
     var spinner = $('#loader');
-    
+    spinner.show();
+
     const AccessToken = sessionStorage.getItem("AccessToken");
     if(AccessToken){
       let countCart = 0;
@@ -107,22 +109,26 @@
           alert(JSON.parse(res.responseText).message);
         }
       }).always(function (res){
-        console.log('nav', res);
+        spinner.hide();
       })
 
-      $("#countCart").append(`
-        <span class="number">${countCart}</span>
+      $("#cartCount").text(`
+        ${countCart}
       `)
     }
 
     if(sessionStorage.getItem("AccessToken") && (sessionStorage.getItem("AccessToken") != "undefined")){
+      spinner.show();
       const User = JSON.parse(sessionStorage.getItem("User"))
       $("#notLogin").hide();
       $("#img-profile").attr("src", User.photo);
       $("#isLogin").show();
+      spinner.hide();
     }else{
+      spinner.show();
       $("#notLogin").show();
       $("#isLogin").hide();
+      spinner.hide();
     }
 
     $("#formLogin").submit(function(e){
@@ -164,8 +170,10 @@
       sessionStorage.removeItem("User");
       $("#notLogin").show();
       $("#isLogin").hide();
-      spinner.hide();
+      window.location.href = 'home';
     })
+
+    spinner.hide();
   })
   
 </script>

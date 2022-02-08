@@ -13,20 +13,20 @@
         <form id="formRegister" enctype="multipart/form-data">
           <div class="form-group">
             <label for="name">Full Name</label>
-            <input type="text" class="form-control" id="name" name="name">
+            <input type="text" required class="form-control" id="name" name="name">
           </div>
           <div class="form-group">
             <label for="emailReg">Email address</label>
-            <input type="email" class="form-control" id="emailReg" aria-describedby="emailHelp" name="email">
+            <input type="email" required class="form-control" id="emailReg" aria-describedby="emailHelp" name="email">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div>
           <div class="form-group">
             <label for="passwordReg">Password</label>
-            <input type="password" class="form-control" id="passwordReg" name="password">
+            <input type="password" required class="form-control" id="passwordReg" name="password">
           </div>
           <div class="form-group">
             <label for="photo">Photo Profile</label>
-            <input type="file" class="form-control" id="photo" name="photo">
+            <input type="file" required class="form-control" id="photo" name="photo">
           </div>
           <button type="submit" class="btn btn-primary btn-block">Submit</button>
         </form>
@@ -38,6 +38,8 @@
 <script>
   $("#formRegister").submit((e)=>{
     e.preventDefault();
+    var spinner = $('#loader');
+    spinner.show();
 
     const name = $("#name").val();
     const email = $("#emailReg").val();
@@ -64,11 +66,20 @@
       "headers": {
         "ClientID": "61f0d060f1f163.13349246"
       },
-      "data": formData
+      "data": formData,
+      success: (res)=>{
+        let responseJSON = JSON.parse(res);
+        alert(responseJSON.message);
+        window.location.href = 'shop';
+      },
+      error: (res) => {
+        alert(JSON.parse(res.responseText).message);
+      }
     };
 
-    $.ajax(settings).done(function (res) {
+    $.ajax(settings).always(function (res) {
       console.log(res);
+      spinner.hide();
     });
   })
 </script>
