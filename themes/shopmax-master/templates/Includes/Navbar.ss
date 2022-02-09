@@ -3,8 +3,8 @@
   <div class="search-wrap">
     <div class="container">
       <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-      <form action="#" method="post">
-        <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
+      <form action="#" id="formSearch" >
+        <input type="text" id="inpSearch" class="form-control" placeholder="Search keyword and hit enter...">
       </form>  
     </div>
   </div>
@@ -28,7 +28,7 @@
         </nav>
       </div>
       <div class="icons">
-        <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+        <a href="search" id="search" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
         <a href="cart" class="icons-btn d-inline-block bag" id="countCart">
           <span class="icon-shopping-bag"></span>
           <span class="number" id="cartCount">0</span>
@@ -166,11 +166,16 @@
 
     $("#logout").click(function(){
       spinner.show();
-      sessionStorage.removeItem("AccessToken");
-      sessionStorage.removeItem("User");
+      sessionStorage.clear()
       $("#notLogin").show();
       $("#isLogin").hide();
       window.location.href = 'home';
+    })
+
+    $('#formSearch').submit(function(e){
+      e.preventDefault();
+      const search = $('#inpSearch').val();
+      window.location.href = `shop/search/${search}`
     })
 
     spinner.hide();

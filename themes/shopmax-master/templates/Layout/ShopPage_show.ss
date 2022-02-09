@@ -124,17 +124,16 @@
     })
 
     spinner.hide();
-    
-    let carts = await JSON.parse(sessionStorage.getItem('cart'));
 
     $(".addToCart").click(async function (e){
       e.preventDefault();
+      let carts = await JSON.parse(sessionStorage.getItem('cart'));
       const AccessToken = sessionStorage.getItem("AccessToken");
       if(!AccessToken){
         alert("Please login first to continue");
       }else{
         spinner.show();
-        if( carts.length > 0 && carts[0].Product.MerchantID != $(this).attr('merchantID')){
+        if(carts && carts.length > 0 && carts[0].Product.MerchantID != $(this).attr('merchantID')){
           let cek = confirm("Do you want to change orders from this merchant? It's okay, but we delete orders from the previous merchant, okay?");
 
           if(cek){
@@ -162,6 +161,7 @@
                   "success": (res) => {
                     let response = JSON.parse(res);
                     alert(response.message);
+                    sessionStorage.setItem('cart', JSON.stringify(response.data));
                     $('#cartCount').text(Number($('#cartCount').text()) + 1)
                   },
                   "error": (res) => {

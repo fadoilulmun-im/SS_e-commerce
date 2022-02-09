@@ -16,24 +16,7 @@
           </div>
           <div class="col-md-6 col-lg-4">
             <ul class="list-unstyled">
-              <li><a href="#">Sell online</a></li>
-              <li><a href="#">Features</a></li>
-              <li><a href="#">Shopping cart</a></li>
-              <li><a href="#">Store builder</a></li>
-            </ul>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <ul class="list-unstyled">
-              <li><a href="#">Mobile commerce</a></li>
-              <li><a href="#">Dropshipping</a></li>
-              <li><a href="#">Website development</a></li>
-            </ul>
-          </div>
-          <div class="col-md-6 col-lg-4">
-            <ul class="list-unstyled">
-              <li><a href="#">Point of sale</a></li>
-              <li><a href="#">Hardware</a></li>
-              <li><a href="#">Software</a></li>
+              <li><a href="merchant/loginregister">Login / Register Merchant</a></li>
             </ul>
           </div>
         </div>

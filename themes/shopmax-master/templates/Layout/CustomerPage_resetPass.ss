@@ -14,8 +14,15 @@
           <form id="formReset">
             <div class="form-group">
               <label for="newPassword">New Password</label>
-              <input type="password" class="form-control" id="newPassword" name="password">
+
+              <div class="input-group" id="show_hide_password">
+                <input type="password" name='password' id="newPassword" class="form-control" name="password" required autocomplete="current-password">
+                <div class="input-group-append">
+                  <a href="#" class="btn btn-outline-secondary"><i class="bi bi-eye-slash-fill" aria-hidden="true"></i></a>
+                </div>
+              </div>
             </div>
+            
             <button type="submit" class="btn btn-primary btn-block">Submit</button>
           </form>
         <% else %>
@@ -31,6 +38,20 @@
   $(document).ready(function(e){
 
     const spinner = $('#loader');
+
+    $("#show_hide_password a").on('click', function(event) {
+        event.preventDefault();
+        if($('#show_hide_password input').attr("type") == "text"){
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass( "bi bi-eye-slash" );
+            $('#show_hide_password i').removeClass( "bi bi-eye" );
+        }else if($('#show_hide_password input').attr("type") == "password"){
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass( "bi bi-eye-slash" );
+            $('#show_hide_password i').addClass( "bi bi-eye" );
+        }
+    });
+
     $('#formReset').submit(async function(e){
       e.preventDefault();
       spinner.show();

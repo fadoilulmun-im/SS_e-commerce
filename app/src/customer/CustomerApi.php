@@ -270,34 +270,21 @@ class CustomerApiPageController extends ApiPageController
 
   public function search()
   {
-    if($this->checkToken['status'] == 'no'){
-      return $this->httpError(403,json_encode($this->checkToken));
-    }
-
     $search = $this->request->param('ID');
 
-    $merchants = Merchant::get()->filter([
+    $merchants = Merchant::get()->filterAny([
       'FirstName:PartialMatch:nocase' => $search,
-      'Validation' => 'success'
-    ]);
+      'Products.Title:PartialMatch:nocase' => $search
+    ])->filter('Validation', 'success');
     $arrMerchants = [];
     foreach($merchants as $merchant){
       $arrMerchants[] = $merchant->toArray();
     }
 
-    $products = Product::get()->filter('Title:PartialMatch:nocase', $search);
-    $arrproducts = [];
-    foreach($products as $product){
-      $arrproducts[] = $product->toArray();
-    }
-
     return json_encode([
       'status' => 'ok',
       'message' => 'Search success',
-      'data' => [
-        'Merchants' => $arrMerchants,
-        'Products' => $arrproducts
-      ]
+      'data' => $arrMerchants
     ]);
   }
 

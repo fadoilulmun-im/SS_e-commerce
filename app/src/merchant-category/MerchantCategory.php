@@ -18,6 +18,16 @@ use SilverStripe\ORM\DataObject;
     private static $has_many = [
       'Merchants' => Merchant::class,
     ];
+
+    public function toArray()
+    {
+      $arr = [
+        'ID' => $this->ID,
+        'Title' => $this->Title
+      ];
+
+      return $arr;
+    }
   }
 
   /**

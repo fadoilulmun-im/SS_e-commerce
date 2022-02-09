@@ -43,7 +43,8 @@ class MerchantApiPageController extends ApiPageController
     'rejectOrder',
     'forgotPassword',
     'resetPassword',
-    'listOrders'
+    'listOrders',
+    'getCategory'
   ];
 
   public function doInit()
@@ -67,7 +68,7 @@ class MerchantApiPageController extends ApiPageController
     $merchant = Merchant::create();
     $merchant->FirstName = $_REQUEST['name'];
     $merchant->Email = $_REQUEST['email'];
-    $merchant->CategoryID = $_REQUEST['CategoryID'];
+    $merchant->CategoryID = $_REQUEST['categoryID'];
     $merchant->Password = $_REQUEST['password'];
     $merchant->Validation = uniqid('', true);
     $merchant->Locale = 'id_ID';
@@ -97,7 +98,7 @@ class MerchantApiPageController extends ApiPageController
 
     return json_encode([
       'status' => 'ok',
-      'message' => 'Registration successful, please check your email',
+      'message' => 'Registration successfully, please check your email',
       'data' => $merchant->toArray()
     ]);
   }
@@ -157,10 +158,10 @@ class MerchantApiPageController extends ApiPageController
     $auth = new MemberAuthenticator();
     $result = $auth->checkPassword($merchant, $_REQUEST['password']);
     if(!$result->isValid()){
-      return json_encode([
+      return new HTTPResponse(json_encode([
         'status' => 'no',
         'message' => 'Invalid Credentials'
-      ]);
+      ]), 403);
     }
 
     $merchant->AccessToken = uniqid('', true);
@@ -204,6 +205,7 @@ class MerchantApiPageController extends ApiPageController
 
     $this->merchant->FirstName = $_REQUEST['name'];
     $this->merchant->Email = $_REQUEST['email'];
+    $this->merchant->CategoryID = $_REQUEST['categoryID'];
     if(isset($_REQUEST['password']) && $_REQUEST['password'] != ''){
       $this->merchant->Password = $_REQUEST['password'];
     }
@@ -380,6 +382,21 @@ class MerchantApiPageController extends ApiPageController
       'status' => 'ok',
       'message' => 'Successfully get all orders',
       'data' => $arrOrders
+    ]);
+  }
+
+  public function getCategory()
+  {
+    $categories = MerchantCategory::get();
+    $arrCategories = [];
+    foreach($categories as $cartegory){
+      $arrCategories[] = $cartegory->toArray();
+    }
+
+    return json_encode([
+      'status' => 'ok',
+      'message' => 'Successfully get all category',
+      'data' => $arrCategories
     ]);
   }
 }

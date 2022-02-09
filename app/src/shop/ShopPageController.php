@@ -16,12 +16,19 @@ class ShopPageController extends PageController
   }
 
   private static $allowed_actions = [
-    'show'
+    'show',
+    'search'
   ];
 
   public function show()
   {
     return [];
+  }
+
+  public function search()
+  {
+    $id = $this->request->param('ID');
+    return ['id' => $id];
   }
 }
 ?>

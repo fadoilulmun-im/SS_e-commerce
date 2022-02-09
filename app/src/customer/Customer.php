@@ -55,6 +55,12 @@ class Customer extends Member
       ];
     }
 
+    if(strlen($this->Password) < 8){
+      $result[] = [
+        'password' => 'Password length must be longer than 8'
+      ];
+    }
+
     if(count($result) > 0){
       return $result;
     }

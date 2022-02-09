@@ -31,7 +31,7 @@ class Merchant extends Member
       'Name' => $this->FirstName,
       'Email' => $this->Email,
       'Photo' => $this->PhotoProfile->Link(),
-      'Category' => $this->Category->Title,
+      'Category' => $this->Category()->toArray(),
       'IsOpen' => $this->IsOpen ? true : false
     ];
 
@@ -80,6 +80,12 @@ class Merchant extends Member
     if(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i", $this->Email)){
       $result[] = [
         'email' => 'Email is invalid'
+      ];
+    }
+
+    if(strlen($this->Password) < 8){
+      $result[] = [
+        'password' => 'Password length must be longer than 8 character'
       ];
     }
 
