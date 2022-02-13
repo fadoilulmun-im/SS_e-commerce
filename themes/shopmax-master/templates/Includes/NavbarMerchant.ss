@@ -7,9 +7,14 @@
           <a href="home" class="js-logo-clone">E-Comm</a>
         </div>
       </div>
+      <div class="radio" id="isopen">
+        <input label="Open" type="radio" name="isopen" value="open" checked>
+        <input label="Closed" type="radio" name="isopen" value="closed">
+      </div>
       <div class="icons">
-
+        
         <span id="isLogin" style="display: none">
+          
           Hi, <span id="nameMerchant">Anu</span>
           <a class="icons-btn d-inline-block ml-2" href='#' role="button" id="user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%-- <span class="icon-user"></span> --%>
@@ -60,5 +65,46 @@
     })
 
     spinner.hide();
+
+    $(`input[name=isopen]`).change(function(e){
+      e.preventDefault();
+      spinner.show();
+      let val = $(this).val() == 'open' ? 'true' : 'false' ;
+      $.post({
+        url: `merchant-api/isOpen/${val}`,
+        headers: {
+          ClientID: "61f0d060f1f163.13349246",
+          AccessToken : AccessToken
+        },
+        success: async (res) => {
+          let response = JSON.parse(res);
+          await Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+            icon: 'success',
+            title: response.message
+          })
+        },
+        error: (res) => {
+          let responseJSON = JSON.parse(res.responseText);
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            icon: 'error',
+            title: responseJSON.message
+          });
+        }
+      }).always(function(){
+        spinner.hide();
+      })
+    });
   })
 </script>

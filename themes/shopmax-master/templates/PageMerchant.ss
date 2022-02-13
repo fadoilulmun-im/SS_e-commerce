@@ -34,10 +34,12 @@ Change it, enhance it and most importantly enjoy it!
   <link rel="stylesheet" href="$ThemeDir/css/magnific-popup.css">
   <link rel="stylesheet" href="$ThemeDir/css/owl.carousel.min.css">
   <link rel="stylesheet" href="$ThemeDir/css/owl.theme.default.min.css">
-  <link rel="stylesheet" href="$ThemeDir/css/style.css?$ContentLocale">
+  <link rel="stylesheet" href="$ThemeDir/css/style.css?$getTime">
   <script src="$ThemeDir/js/jquery-3.3.1.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.css"/>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.4/datatables.min.js"></script>
   <style>
     #loader {
       display: none;
@@ -53,6 +55,43 @@ Change it, enhance it and most importantly enjoy it!
     .swal2-container {
       z-index: 9999999;
     }
+      .radio {
+        padding: 4px;
+        border-radius: 3px;
+        position: relative;
+      }
+      
+      .radio input {
+        width: auto;
+        height: 100%;
+        appearance: none;
+        outline: none;
+        cursor: pointer;
+        border-radius: 2px;
+        padding: 4px 8px;
+        background: #8c92a0;
+        color: #bdbdbdbd;
+        font-size: 14px;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        transition: all 100ms linear;
+      }
+      
+      .radio input:checked {
+        background-image: linear-gradient(180deg, #95d891, #74bbad);
+        color: #fff;
+        box-shadow: 0 1px 1px #0000002e;
+        text-shadow: 0 1px 0px #79485f7a;
+      }
+      
+      .radio input:before {
+        content: attr(label);
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+      }
+    
   </style>
 </head>
 <body>
@@ -65,6 +104,7 @@ Change it, enhance it and most importantly enjoy it!
   </div>
   <div id="loader"></div>
 
+  <div id="modal"></div>
 <script src="$ThemeDir/js/jquery-ui.js"></script>
 <script src="$ThemeDir/js/popper.min.js"></script>
 <script src="$ThemeDir/js/bootstrap.min.js"></script>
@@ -72,7 +112,7 @@ Change it, enhance it and most importantly enjoy it!
 <script src="$ThemeDir/js/jquery.magnific-popup.min.js"></script>
 <script src="$ThemeDir/js/aos.js"></script>
 
-<script src="$ThemeDir/js/main.js?$ContentLocale"></script>
+<script src="$ThemeDir/js/main.js?$getTime"></script>
 <script src="$ThemeDir/js/slick.min.js"></script>
 </body>
 </html>

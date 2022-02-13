@@ -79,7 +79,7 @@ class ProductApiPageController extends ApiPageController
   public function merchant()
   {
     if($this->checkToken['status'] == 'no'){
-      return json_encode($this->checkToken);
+      return new HTTPResponse(json_encode($this->checkToken), 403);
     }
     $id = $this->merchant->ID;
     $products = Product::get()->filter('MerchantID', $id);
@@ -318,7 +318,7 @@ class ProductApiPageController extends ApiPageController
     $status = $isAvailable ? 'available' : 'not available';
     return json_encode([
       'status' => 'ok',
-      'message' => "Product is $status",
+      'message' => "Now Product is $status",
       'data' => $product->toArray()
     ]);
   }

@@ -307,7 +307,7 @@ class MerchantApiPageController extends ApiPageController
     $status = $isOpen ? 'Open' : 'Closed';
     return json_encode([
       'status' => 'ok',
-      'message' => "Merchant is $status"
+      'message' => "Now merchant is $status"
     ]);
   }
 

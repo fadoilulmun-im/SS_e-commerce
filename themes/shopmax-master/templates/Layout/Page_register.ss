@@ -66,16 +66,11 @@
       const password = $("#passwordReg").val();
       const photo = $("#photo")[0].files;
 
-      console.log(photo[0]);
       var formData = new FormData();
       formData.append("name", name);
       formData.append("email", email);
       formData.append("password", password);
       formData.append("photo", photo[0]);
-      
-      for (var value of formData.values()) {
-        console.log(value);
-      }
 
       var settings = {
         "url": "customer-api/register",

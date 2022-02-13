@@ -88,19 +88,6 @@
       window.location.href = 'merchant/order';
     }
 
-    $(".show_hide_password a").on('click', function(event) {
-        event.preventDefault();
-        if($('.show_hide_password input').attr("type") == "text"){
-            $('.show_hide_password input').attr('type', 'password');
-            $('.show_hide_password i').addClass( "bi bi-eye-slash" );
-            $('.show_hide_password i').removeClass( "bi bi-eye" );
-        }else if($('.show_hide_password input').attr("type") == "password"){
-            $('.show_hide_password input').attr('type', 'text');
-            $('.show_hide_password i').removeClass( "bi bi-eye-slash" );
-            $('.show_hide_password i').addClass( "bi bi-eye" );
-        }
-    });
-
     let categories = [];
     $.get({
       url: 'merchant-api/getCategory',
@@ -238,17 +225,17 @@
       })
     })
 
-    $('#showRegister').click(function(e){
+    $('#showRegister').click(async function(e){
       e.preventDefault();
       $('#Title').text('Register Merchant')
-      $('#login').hide();
+      await $('#login').hide();
       $('#register').show('slow');
     })
 
-    $('#showLogin').click(function(e){
+    $('#showLogin').click(async function(e){
       e.preventDefault();
       $('#Title').text('Login Merchant')
-      $('#register').hide();
+      await $('#register').hide();
       $('#login').show('slow');
     })
   })
