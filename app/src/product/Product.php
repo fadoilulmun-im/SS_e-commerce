@@ -14,7 +14,8 @@ use SilverStripe\ORM\DataObject;
     private static $db = [
       'Title' => 'Varchar',
       'Price' => 'Currency',
-      'IsAvailable' => 'Boolean'
+      'IsAvailable' => 'Boolean',
+      'IsDelete' => 'Boolean'
     ];
 
     private static $has_one = [
@@ -33,6 +34,7 @@ use SilverStripe\ORM\DataObject;
         'ID' => $this->ID,
         'Title' => $this->Title,
         'Price' => $this->Price,
+        'Created' => $this->Created,
         'MerchantID' => $this->MerchantID,
         'IsAvailable' => $this->IsAvailable ? 'yes' : 'no'
       ];

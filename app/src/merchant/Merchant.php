@@ -52,7 +52,7 @@ class Merchant extends Member
 
     if(count($this->Products()) != 0){
       $arr['Products'] = [];
-      foreach($this->Products() as $product){
+      foreach($this->Products()->filter('IsDelete', false) as $product){
         $arr['Products'][] = $product->toArray();
       }
     }else{

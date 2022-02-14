@@ -53,20 +53,25 @@
         data.forEach((item, index)=>{
           $('#lists-product').append(`
             <tr>
-              <td>#${item.ID}</td>
+              <td>${item.ID}</td>
               <td>${"Rp "+ new Intl.NumberFormat("id-ID").format(item.TotalPrice) }</td>
               <td>${item.Time}</td>
               <td>${item.IsAccept === null ? 'Waiting' : item.IsAccept+'ed'}</td>
               <td>
                 <a class="btn-sm btn-info text-white">Show</a>
                 <a class="btn-sm btn-warning text-white">Edit</a>
-                <a class="btn-sm btn-danger text-white">Delete</a>
               </td>
             </tr>
           `)
         })
         $('.btn-sm').css('cursor', 'pointer');
-        $('#data-table').DataTable();
+        $('#data-table').DataTable({
+          "columnDefs": [
+            {"targets":0, "type":"num"},
+            {"targets":3, "type":"date-eu"}
+          ],
+          "order": [[ 2, "desc" ]]
+        });
 
       },
       error: (res) => {

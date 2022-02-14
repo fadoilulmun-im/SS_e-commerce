@@ -18,7 +18,9 @@ use SilverStripe\CMS\Controllers\ContentController;
     private static $allowed_actions = [
       'loginRegister',
       'order',
-      'product'
+      'product',
+      'addProduct',
+      'editProduct'
     ];
 
     public function index()
@@ -39,6 +41,16 @@ use SilverStripe\CMS\Controllers\ContentController;
     public function product()
     {
       return $this->customise([])->renderWith(['MerchantPage_product', 'PageMerchant']);
+    }
+
+    public function addProduct()
+    {
+      return $this->customise([])->renderWith(['MerchantPage_addProduct', 'PageMerchant']);
+    }
+
+    public function editProduct()
+    {
+      return $this->customise([])->renderWith(['MerchantPage_editProduct', 'PageMerchant']);
     }
   }
 ?>

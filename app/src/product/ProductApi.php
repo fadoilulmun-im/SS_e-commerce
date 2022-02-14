@@ -82,7 +82,10 @@ class ProductApiPageController extends ApiPageController
       return new HTTPResponse(json_encode($this->checkToken), 403);
     }
     $id = $this->merchant->ID;
-    $products = Product::get()->filter('MerchantID', $id);
+    $products = Product::get()->filter([
+      'MerchantID' => $id,
+      'IsDelete' => false
+    ])->sort('Created', 'DESC');
     $arrProduct = [];
     foreach($products as $product){
       $arrProduct[] = $product->toArray();

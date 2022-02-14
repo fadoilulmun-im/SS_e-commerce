@@ -297,7 +297,7 @@ class MerchantApiPageController extends ApiPageController
     }
 
     if($this->checkToken['status'] == 'no'){
-      return json_encode($this->checkToken);
+      return new HTTPResponse(json_encode($this->checkToken), 403);
     }
 
     $isOpen = $this->id == 'true' ? true : false;
@@ -370,9 +370,11 @@ class MerchantApiPageController extends ApiPageController
       return json_encode($this->checkToken);
     }
 
-    $orders = Order::get()->filter([
-      'OrderDetails.Product.MerchantID' => $this->merchant->ID
-    ]);
+    // $orders = Order::get()->filter([
+    //   'OrderDetails.Product.MerchantID' => $this->merchant->ID
+    // ])->sort('Created', 'DESC');
+
+    $orders = $this->merchant->Orders()->sort('Created', 'DESC');
 
     $arrOrders = [];
     foreach($orders as $order){

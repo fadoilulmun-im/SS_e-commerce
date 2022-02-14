@@ -7,7 +7,7 @@
           <a href="home" class="js-logo-clone">E-Comm</a>
         </div>
       </div>
-      <div class="radio" id="isopen">
+      <div class="radio" id="isopen" style="display: none">
         <input label="Open" type="radio" name="isopen" value="open" checked>
         <input label="Closed" type="radio" name="isopen" value="closed">
       </div>
@@ -54,6 +54,7 @@
       await $("#img-profile").attr("src", Merchant.Photo);
       await $('#nameMerchant').text(Merchant.Name)
       $('#isLogin').show();
+      $('#isopen').show();
     }
 
 

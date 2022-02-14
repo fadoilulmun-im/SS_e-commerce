@@ -129,20 +129,11 @@
     let products = [];
     let merchants = [];
     var settings = {
-      //url: "product-api",
       url: "customer-api/allMerchant",
       "headers": {
         "ClientID": "61f0d060f1f163.13349246"
       },
       "success": async (res) => {
-        /*try{
-          let response = await JSON.parse(res);
-          await localStorage.setItem("Products",JSON.stringify(response.data));
-          products = await response.data;
-        }catch(e){
-          products = await JSON.parse(localStorage.getItem("Products"));
-          console.log('error : ',e);
-        }*/
         let response = res.split('[2022-');
         let responseJSON = JSON.parse(response[0]);
 
@@ -186,7 +177,7 @@
             
           </a>
           <h2 class="item-title"><a ${item.IsOpen ? `href="shop/show/${item.ID}"` :  `onclick='alert("Merchant is closed")'`} >${item.Name}</a></h2>
-          <strong class="item-price">${item.Category}</strong>
+          <strong class="item-price">${item.Category.Title}</strong>
         </div>
       `)
     })
