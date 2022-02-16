@@ -41,7 +41,8 @@ class Order extends DataObject
   {
     $arr = [
       'ID' => $this->ID,
-      'TotalPrice' => $this->TotalPrice
+      'TotalPrice' => $this->TotalPrice,
+      'IsAccept' => $this->IsAccept
     ];
 
     if(count($this->OrderDetails()) != 0){

@@ -149,10 +149,6 @@ class ProductApiPageController extends ApiPageController
     if($this->checkClientID()){
       return $this->checkClientID();
     }
-    // if($this->checkToken['status'] == 'no'){
-    //   return json_encode($this->checkToken);
-    // }
-
 
     $product = Product::get()->byID($this->id);
 
@@ -217,7 +213,8 @@ class ProductApiPageController extends ApiPageController
       ]), 404);
     }
 
-    $product->delete();
+    $product->IsDelete = True;
+    $product->write();
     return json_encode([
       'status' => 'ok',
       'message' => 'Successfully delete product',
@@ -287,7 +284,7 @@ class ProductApiPageController extends ApiPageController
 
     return json_encode([
       'status' => 'ok',
-      'message' => 'Successfully delete product',
+      'message' => 'Successfully delete image product',
       'data' => $image->toArray()
     ]);
   }

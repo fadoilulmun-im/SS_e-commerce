@@ -44,7 +44,8 @@ class MerchantApiPageController extends ApiPageController
     'forgotPassword',
     'resetPassword',
     'listOrders',
-    'getCategory'
+    'getCategory',
+    'orderDetail'
   ];
 
   public function doInit()
@@ -349,6 +350,7 @@ class MerchantApiPageController extends ApiPageController
     }
 
     $order->IsAccept = $this->otherID == 'Accept' ? 'Accept' : 'Reject';
+    $order->write();
     $emailToCustomer = new Email('no-reply@mydomain.com', $order->Customer->Email, 'Order '.$order->IsAccept.'ed', $this->bodyEmailAcceptOrReject($order));
     if(!$emailToCustomer->send()){
       return json_encode([
@@ -399,6 +401,31 @@ class MerchantApiPageController extends ApiPageController
       'status' => 'ok',
       'message' => 'Successfully get all category',
       'data' => $arrCategories
+    ]);
+  }
+
+  public function orderDetail()
+  {
+    if($this->checkToken['status'] == 'no'){
+      return $this->httpError(403,json_encode($this->checkToken));
+    }
+
+    $order = Order::get()->filter([
+      'ID' => $this->id,
+      'MerchantID' => $this->merchant->ID
+    ])->first();
+
+    if(!$order){
+      return new HTTPResponse(json_encode([
+        'status' => 'no',
+        'message' => 'Order not found'
+      ]), 404);
+    }
+
+    return json_encode([
+      'status' => 'ok',
+      'message' => 'Success get detail order',
+      'data' => $order->toArrayOne()
     ]);
   }
 }

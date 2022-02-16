@@ -127,7 +127,6 @@
           });
 
           $(`#delete-${item.ID}`).click(function(){
-            console.log('as');
             Swal.fire({
               title: `Do you want to delete ${item.Title} ?`,
               showCancelButton: true,

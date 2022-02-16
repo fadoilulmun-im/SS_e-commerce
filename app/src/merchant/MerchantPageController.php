@@ -10,9 +10,12 @@ use SilverStripe\CMS\Controllers\ContentController;
    */
   class MerchantPageController extends PageController
   {
+    public  $id, $otherID;
     public function doInit()
     {
       parent::doInit();
+      $this->id = $this->request->param('ID');
+      $this->otherID = $this->request->param('OtherID');
     }
 
     private static $allowed_actions = [
@@ -35,7 +38,12 @@ use SilverStripe\CMS\Controllers\ContentController;
 
     public function order()
     {
-      return $this->customise([])->renderWith(['MerchantPage_order', 'PageMerchant']);
+      if($this->id){
+        return $this->customise([])->renderWith(['MerchantPage_orderDetail', 'PageMerchant']);
+      }else{
+        return $this->customise([])->renderWith(['MerchantPage_order', 'PageMerchant']);
+      }
+
     }
 
     public function product()

@@ -58,8 +58,7 @@
               <td>${item.Time}</td>
               <td>${item.IsAccept === null ? 'Waiting' : item.IsAccept+'ed'}</td>
               <td>
-                <a class="btn-sm btn-info text-white">Show</a>
-                <a class="btn-sm btn-warning text-white">Edit</a>
+                <a href="{$Link}order/${item.ID}" class="btn-sm btn-info text-white">Show</a>
               </td>
             </tr>
           `)
