@@ -90,7 +90,19 @@
     spinner.show();
     const AccessToken = sessionStorage.getItem("AccessToken");
     if(!AccessToken){
-      alert("Please login first to continue");
+      await Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        },
+        icon: 'error',
+        title: "Please login first to continue"
+      });
       window.history.back();
     }else{
       let cart = [];
@@ -152,7 +164,19 @@
                     $('#subtotal').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
                   },
                   error: (res) => {
-                    alert(JSON.parse(res.responseText).message);
+                    Swal.fire({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 2000,
+                      timerProgressBar: true,
+                      didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                      },
+                      icon: 'error',
+                      title: JSON.parse(res.responseText).message
+                    });
                   }
                 })
               }
@@ -162,8 +186,20 @@
           $('#total').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
           $('#subtotal').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
         },
-        error: (res) => {
-          alert(JSON.parse(res.responseText).message);
+        error: async (res) => {
+          await Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+            icon: 'error',
+            title: JSON.parse(res.responseText).message
+          });
           window.history.back();
         }
       }).always(function(res){
@@ -198,7 +234,19 @@
             await $('#subtotal').text(`Rp ${new Intl.NumberFormat("id-ID").format(total)}`)
           },
           error: (res) => {
-            alert(JSON.parse(res.responseText).message);
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              },
+              icon: 'error',
+              title: JSON.parse(res.responseText).message
+            });
           }
         }).always(function(res){
           console.log(res);
@@ -233,7 +281,19 @@
 
           },
           error: (res) => {
-            alert(JSON.parse(res.responseText).message);
+            Swal.fire({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              },
+              icon: 'error',
+              title: JSON.parse(res.responseText).message
+            });
           }
         }).always(function(res){
           console.log(res);
@@ -254,7 +314,19 @@
           window.location.href = 'home/thankyou';
         },
         error: (res) => {
-          alert(JSON.parse(res.responseText).message);
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+            icon: 'error',
+            title: JSON.parse(res.responseText).message
+          });
         }
       }).always(function(res){
         console.log(res)

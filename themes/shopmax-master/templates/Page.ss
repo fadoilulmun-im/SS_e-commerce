@@ -36,6 +36,7 @@ Change it, enhance it and most importantly enjoy it!
   <link rel="stylesheet" href="$ThemeDir/css/owl.theme.default.min.css">
   <link rel="stylesheet" href="$ThemeDir/css/style.css?$ContentLocale">
   <script src="$ThemeDir/js/jquery-3.3.1.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <style>
     #loader {
@@ -48,6 +49,9 @@ Change it, enhance it and most importantly enjoy it!
       width: 100%;
       background: rgba(0,0,0,0.75) url($ThemeDir/images/loading-bubbles.gif) no-repeat center center;
       z-index: 10000;
+    }
+    .swal2-container {
+      z-index: 9999999;
     }
   </style>
 </head>

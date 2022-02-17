@@ -41,10 +41,34 @@
         },
         success: (res) => {
           const response = JSON.parse(res);
-          alert(response.message);
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+            icon: 'success',
+            title: response.message
+          })
         },
         error: (res) => {
-          alert(JSON.parse(res.responseText).message);
+          Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+            icon: 'error',
+            title: JSON.parse(res.responseText).message
+          });
         }
       }).always(function(){
         spinner.hide();

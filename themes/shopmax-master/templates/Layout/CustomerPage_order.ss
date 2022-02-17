@@ -30,13 +30,25 @@
 </div>
 
 <script>
-  $(document).ready(function(){
+  $(document).ready(async function(){
     var spinner = $('#loader');
     spinner.show();
 
     const AccessToken = sessionStorage.getItem("AccessToken");
     if(!AccessToken){
-      alert("Please login first to continue");
+      await Swal.fire({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        },
+        icon: 'error',
+        title: "Please login first to continue"
+      });
       window.history.back();
     }
 
@@ -68,8 +80,20 @@
           `)
         })
       },
-      error: (res) => {
-        alert(JSON.parse(res.responseText).message);
+      error: async (res) => {
+        await Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          },
+          icon: 'error',
+          title: JSON.parse(res.responseText).message
+        });
         window.history.back();
       }
     }).always(function(res){

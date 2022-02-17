@@ -54,10 +54,22 @@
 
     spinner.hide();
 
-    $('#formProf').submit(function(e){
+    $('#formProf').submit(async function(e){
       const AccessToken = sessionStorage.getItem("AccessToken");
       if(!AccessToken){
-        alert("anu Please login first to continue");
+        await Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          },
+          icon: 'error',
+          title: "Please login first to continue"
+        });
         return false;
       }
       e.preventDefault();
