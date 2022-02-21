@@ -129,7 +129,7 @@
                 </td>
                 <td id="price-${item.Product.ID}">Rp ${new Intl.NumberFormat("id-ID").format(item.Product.Price)}</td>
                 <td>
-                  <div class="input-group mx-auto" style="max-width: 120px;">
+                  <div class="input-group mx-auto" style="width: 110px;">
                     <div class="input-group-prepend">
                       <button data-id="${item.Product.ID}" class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
                     </div>

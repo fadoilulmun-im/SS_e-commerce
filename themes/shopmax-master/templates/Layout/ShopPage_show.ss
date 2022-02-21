@@ -1,3 +1,29 @@
+<style>
+  
+  .not-avail{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .i-cart{
+    display: none;
+  }
+  @media only screen and (max-width: 600px){
+    .not-avail{
+      left: 1%;
+      top: 20%;
+      transform: unset;
+    }
+    .inp-cart{
+      display: none;
+    }
+    .i-cart{
+      display: block;
+    }
+  }
+</style>
+
 <div class="bg-light py-3 pl-4">
   <div class="container">
     <div class="row">
@@ -38,7 +64,7 @@
         await products.forEach((item, index) => {
           $('#products').append(`
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-6 col-5">
                 <div class="item-entry">
 
                   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -71,20 +97,19 @@
                       </a>
 
                       ${item.IsAvailable == 'no' ? `
-                        <div class="text-center" style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                        <div class="text-center not-avail">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
                             <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
                           </svg>
                           <br/>
-                          <br/>
-                          <h4>Product not available</h4>
+                          <p>Product not available</p>
                         </div>
                       ` : ''}
 
                     ` : `
                       <div class="text-center">
-                        <h1>Image Not Found</h1>
+                        <h3>Image Not Found</h3>
                       </div>
                     `}
                   </div>
@@ -92,11 +117,13 @@
                 </div>
 
               </div>
-              <div class="col-md-6">
-                <h2 class="text-black mb-5 pb-5">${item.Title}</h2>
+              <div class="col-md-4 col-5">
+                <h4 class="text-black mb-3">${item.Title}</h4>
                 <p><strong class="${item.IsAvailable == 'yes' ? 'text-primary' : 'text-secondary'} h4 mt-5 pt-5">${"Rp "+ new Intl.NumberFormat("id-ID").format(item.Price) }</strong></p>
-                <div class="mb-5">
-                  <div class="input-group mb-3" style="max-width: 120px;">
+              </div>
+              <div class="col-md-2 col-2 inp-cart">
+                <div class="mb-3">
+                  <div class="input-group" style="width: 110px;">
                   <div class="input-group-prepend">
                     <button class="btn ${item.IsAvailable == 'yes' ? 'btn-outline-primary js-btn-minus' : 'btn-outline-secondary disabled'}" type="button">&minus;</button>
                   </div>
@@ -107,9 +134,10 @@
                 </div>
 
                 </div>
-                <p><a href="#" data-id="${item.ID}" merchantID="${item.MerchantID}" class="addToCart buy-now btn btn-sm height-auto px-4 py-3 ${item.IsAvailable == 'yes' ? 'btn-primary' : 'btn-secondary disabled'}">Add To Cart</a></p>
+                <a href="#" data-id="${item.ID}" merchantID="${item.MerchantID}" class="addToCart buy-now btn btn-sm height-auto py-2 ${item.IsAvailable == 'yes' ? 'btn-primary' : 'btn-secondary disabled'}" style="width: 110px;">Add To Cart</a>
 
               </div>
+              <a href="#" data-id="${item.ID}" merchantID="${item.MerchantID}" class="col i-cart ${item.IsAvailable == 'yes' ? 'text-primary' : 'text-secondary disabled'} addToCart"><i class="bi bi-bag-plus-fill"></i></a>
             </div>
             <hr\>
           `)
