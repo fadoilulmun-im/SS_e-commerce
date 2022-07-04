@@ -1,17 +1,24 @@
+<style>
+  .ss-htmleditorfield-file{
+    width: 100%!important;
+  }
+</style>
+
 <div class="site-blocks-cover inner-page" data-aos="fade">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 ml-auto order-md-2 align-self-start">
-        <div class="site-block-cover-content">
-        <h2 class="sub-title">#New Summer Collection 2019</h2>
-        <h1>Arrivals Sales</h1>
-        <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
+  <div class="container typography">
+    <%-- <div class="row">
+      <div class="col-md-12 ml-auto order-md-2 align-self-start"> --%>
+        <%-- <div class="site-block-cover-content">
+          <h2 class="sub-title">#New Summer Collection 2019</h2>
+          <h1>Arrivals Sales</h1>
+          <p><a href="#" class="btn btn-black rounded-0">Shop Now</a></p>
         </div>
       </div>
       <div class="col-md-6 order-1 align-self-end">
         <img src="$ThemeDir/images/model_4.png" alt="Image" class="img-fluid">
-      </div>
-    </div>
+      </div> --%>
+      $Content
+    <%-- </div> --%>
   </div>
 </div>
 
